@@ -1,3 +1,4 @@
+const { prompts } = require("inquirer");
 const Employee = require("./Employee");
 
 class Manager extends Employee {
@@ -11,4 +12,6 @@ class Manager extends Employee {
 
 }
 
+
 module.exports = Manager;
+
