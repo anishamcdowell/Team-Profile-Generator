@@ -2,12 +2,17 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-// const fileName = ".\dist\index.html";
-
+//Team/Employee Requirements
+const team = require("./src/page-template");
 const Employee = require("../Develop/lib/Employee.js");
 const Engineer = require("../Develop/lib/Engineer.js");
 const Intern = require("../Develop/lib/Intern.js");
 const Manager = require("../Develop/lib/Manager.js");
+
+//Employee variables
+// const manager = new Employee(`${data.managerName}, ${data.managerId}, ${data.managerEmail}`, "Manager")
+// const engineer = new Employee(`${engineerName}, ${engineerId}, ${engineerEmail}`, "Engineer");
+// const intern = new Employee(`${internName}, ${internId}, ${internEmail}`, "Intern");
 
 const generateHtml = data => `<html lang="en">
 <head>
@@ -73,6 +78,7 @@ const generateHtml = data => `<html lang="en">
 //CLI Prompts
 inquirer
     .prompt([
+        //MANAGER
         {
             type: "input",
             name: "managerName",
@@ -96,10 +102,60 @@ inquirer
         {
             type: "list",
             name: "selectMemberType",
-            message: "Which type of team member would you like to add?",
+            message: "Which type of team member would you like to add next?",
             choices: ["Engineer", "Intern", "I don't want to add any more team members"],
         },
     ])
+    .then((data) => {
+        if (data.choices === "Engineer") {
+            inquirer
+            .prompt([
+            //ENGINEER
+            {
+                type: "input",
+                name: "engineerId",
+                message: "What is the team engineer's id?",
+            },
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is the team engineer's email?",
+            },
+            {
+                type: "input",
+                name: "engineerGitHub",
+                message: "What is the team engineer's GitHub username?",
+            },
+            ])
+        } else if (data.choices === "Intern") {
+            inquirer
+            .prompt([
+            //INTERN
+            {
+                type: "input",
+                name: "internName",
+                message: "What is the team intern's name?",
+            },
+            {
+                type: "input",
+                name: "internId",
+                message: "What is the team intern's Iid?",
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What is the team intern's email?",
+            },
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What school did the team intern attend?",
+            },
+            ])
+        } else {
+            return
+        }
+    })
     .then ((data) => {
         fs.appendFile("index.html", generateHtml(data), (err) =>
         err ? console.error(err) : console.log("Your team has beena assembled!"));
