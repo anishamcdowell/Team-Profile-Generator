@@ -17,11 +17,15 @@ const outputPath = path.join(OUTPUT_DIR, 'index.html');
 const teamArray = [];
 
 //Initialize app
-//I need my writefile function to await my init function
-async function init() {
-    await createTeam()
+function init() {
+    createTeam();
+    //writeHtml();
+}
+
+function writeHtml() {
     fs.writeFileSync(outputPath, generateTeam(teamArray), err => err ? console.error(err) : console.log("Team.html is complete"));
 }
+
 
 function createTeam() {
 // Prompt user to begin assembling team
