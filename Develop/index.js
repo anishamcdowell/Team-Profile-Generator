@@ -18,10 +18,15 @@ function init() {
     //Create team html page
     //generateHtml();
     //Prompt team member questions
-    addMember();
+    createTeam();
 };
 
-//Prompt user to select type of team member
+function createTeam() {
+// Prompt user to begin assembling team
+    console.log("ASSEMBLE YOUR TEAM...");
+    //Ask what type of team member is being added
+    askForNewEmployee();
+
 function askForNewEmployee() {
     inquirer.prompt({
         type: "list",
@@ -30,14 +35,14 @@ function askForNewEmployee() {
         choices: ["Manager", "Engineer", "Intern", "I don't want to add any more team members"],
     }).then(data => {
         switch (data.role) {
-            case "Manger":
+            case "Manager":
                 return managerQuestions();
             case "Engineer":
                 return engineerQuestions();
             case "Intern":
                 return internQuestions();
             default:
-                finishTeam();
+                console.log("TEAM COMPLETE! PLEASE CHECK YOUR WEBPAGE.");
                 break;
         }
     })
@@ -69,7 +74,7 @@ function managerQuestions() {
             message: "What is the team manager's office number?",
         },    
     ]).then(data => {
-        //Create new manager and add to teamArray
+        //Create new engineer and add to teamArray
         const manager = new Manager();
         teamArray.push(manager);
         //Continue asking for new team members
@@ -85,7 +90,6 @@ function engineerQuestions() {
             name: "engineerName",
             message: "What is the team engineer's name?",
         },
-
         {
             type: "input",
             name: "engineerId",
@@ -108,7 +112,7 @@ function engineerQuestions() {
         //Continue asking for new team members
         askForNewEmployee();
     })
-}
+};
 
 //Intern questions
 function internQuestions() {
@@ -144,17 +148,8 @@ function internQuestions() {
 
 //------------------END: EMPLOYEE QUESTIONS AND SWITCH CASES--------------
 
-function addMember() {
-    //Prompt user to begin assembling team
-    console.log("ASSEMBLE YOUR TEAM...");
-    //Ask what type of team member is being added
-    askForNewEmployee();
-
 };
 
-function finishTeam() {
-    console.log("TEAM COMPLETE! PLEASE CHECK YOUR WEBPAGE.")
-};
 // //Generate HTML based on user data
 // const generateHtml = data => `<html lang="en">
 // <head>

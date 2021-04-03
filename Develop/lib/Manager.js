@@ -1,4 +1,3 @@
-const { prompts } = require("inquirer");
 const Employee = require("./Employee");
 
 class Manager extends Employee {
