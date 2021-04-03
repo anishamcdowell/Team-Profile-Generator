@@ -10,20 +10,30 @@ const Intern = require("../Develop/lib/Intern.js");
 const Manager = require("../Develop/lib/Manager.js");
 const { listenerCount } = require("events");
 
+//Empty array for all newly added team embers to be added to
+const teamArray = [];
 
+//Initialize app
+function init() {
+    //Create team html page
+    //generateHtml();
+    //Prompt team member questions
+    addMember();;
+};
 
-//Prompt user to begin assembling team
-console.log("ASSEMBLE YOUR TEAM...");
+function addMember() {
+    //Prompt user to begin assembling team
+    console.log("ASSEMBLE YOUR TEAM...");
+    //Prompt user to select type of team member
+    const teamQuestion = inquirer.prompt(
+        {
+            type: "list",
+            name: "selectMemberType",
+            message: "Which type of team member would you like to add next?",
+            choices: ["Engineer", "Intern", "I don't want to add any more team members"],
+        });    
+};
 
-//Questions objs/arrays
-//Choose a team member type
-const teamQuestion =
-{
-    type: "list",
-    name: "selectMemberType",
-    message: "Which type of team member would you like to add next?",
-    choices: ["Engineer", "Intern", "I don't want to add any more team members"],
-}
 //Manager questions
 const managerQuestions = [
     {
@@ -99,99 +109,112 @@ const internQuestions = [
 ]
 
 
-//Prompt all team questions
-async function askManagerQuestions(managerQuestions) {
-    const managerAnswers = await inquirer.prompt(managerQuestions);
-    console.log("Manger added");
-    return managerAnswers;
-};
-async function askEngineerQuestions(engineerQuestions) {
-    const engineerAnswers = await inquirer.prompt(engineerQuestions);
-    console.log("Engineer added");
-    return engineerAnswers;
-};
-async function askInternQuestions(internQuestions) {
-    const internAnswers = await inquirer.prompt(internQuestions);
-    console.log("Intern added");
-    return internAnswers;
-};
+// //Prompt all team questions
+// async function askManagerQuestions(managerQuestions) {
+//     const managerAnswers = await inquirer.prompt(managerQuestions);
+//     console.log("Manger added");
+//     return managerAnswers;
+// };
+// async function askEngineerQuestions(engineerQuestions) {
+//     const engineerAnswers = await inquirer.prompt(engineerQuestions);
+//     console.log("Engineer added");
+//     return engineerAnswers;
+// };
+// async function askInternQuestions(internQuestions) {
+//     const internAnswers = await inquirer.prompt(internQuestions);
+//     console.log("Intern added");
+//     return internAnswers;
+// };
 
-const go = Promise.all([askManagerQuestions(managerQuestions), askEngineerQuestions(engineerQuestions), askInternQuestions(internQuestions)])
-.then((answers) => {
-    console.log(answers);
-});
+// function init()
+// .then(askTeamQuestion(teamQuestion)) {
+//     return askManagerQuestions(managerQuestions);
+// })
+
+
+// function askTeamQuestion(teamQuestion)
+// .then(askManagerQuestions(managerQuestions){
+//     return askEngineerQuestions(engineerQuestions)
+// }).then(askInternQuestions(internQuestions)) {
+//     return console.log("Done!")
+// }.catch((err) => throw error);
+
+
+// const go = Promise.all([askManagerQuestions(managerQuestions), askEngineerQuestions(engineerQuestions), askInternQuestions(internQuestions)])
+// .then((answers) => {
+//     console.log(answers);
+// });
   
 // askManagerQuestions(managerQuestions);
 // askEngineerQuestions(engineerQuestions);
 // askInternQuestions(internQuestions);
 
+// //Generate HTML based on user data
+// const generateHtml = data => `<html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <title>My Team</title>
+//     <link rel="stylesheet" href="style.css">
+// </head>
+// <body>
+//     <header class="team-heading">
+//         <h1>My Team</h1>
+//     </header>
+//     <main class="team-area">
+//         <div class="employee-card" id="manager">
+//             <h2>${data.managerName} Manager</h2>
+//             <div class="card-body">
+//                 <div class="list-group-container">
+//                     <li class="list-group-item">
+//                         ID: ${data.managerId}
+//                     </li>
+//                     <li class="list-group-item">
+//                         Email: ${data.managerEmail}
+//                     </li>
+//                     <li class="list-group-item">
+//                         Office Number: ${data.managerOfficeNumber}
+//                     </li>
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="employee-card" id="engineer">
+//             <h2>${data.engineerName} Engineer</h2>
+//             <div class="card-body">
+//                 <li class="list-group-item">
+//                     ID: ${data.engineerId}
+//                 </li>
+//                 <li class="list-group-item">
+//                     Email: ${data.engineerEmail}
+//                 </li>
+//                 <li class="list-group-item">
+//                     GitHub: ${data.engineerGitHub}
+//                 </li>
+//             </div>
+//         </div>
+//         <div class="employee-card" id="intern">
+//             <h2>${data.internName} Intern</h2>
+//             <div class="card-body">
+//                 <li class="list-group-item">
+//                     ID: ${data.internId}
+//                 </li>
+//                 <li class="list-group-item">
+//                     Email: ${data.internEmail}
+//                 </li>
+//                 <li class="list-group-item">
+//                     School: ${data.internSchool}
+//                 </li>
+//             </div>
+//         </div>
+//     </main>
+//     <script src="../index.js"></script>`;
 
-//Generate HTML based on user data
-const generateHtml = data => `<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Team</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="team-heading">
-        <h1>My Team</h1>
-    </header>
-    <main class="team-area">
-        <div class="employee-card" id="manager">
-            <h2>${data.managerName} Manager</h2>
-            <div class="card-body">
-                <div class="list-group-container">
-                    <li class="list-group-item">
-                        ID: ${data.managerId}
-                    </li>
-                    <li class="list-group-item">
-                        Email: ${data.managerEmail}
-                    </li>
-                    <li class="list-group-item">
-                        Office Number: ${data.managerOfficeNumber}
-                    </li>
-                </div>
-            </div>
-        </div>
-        <div class="employee-card" id="engineer">
-            <h2>${data.engineerName} Engineer</h2>
-            <div class="card-body">
-                <li class="list-group-item">
-                    ID: ${data.engineerId}
-                </li>
-                <li class="list-group-item">
-                    Email: ${data.engineerEmail}
-                </li>
-                <li class="list-group-item">
-                    GitHub: ${data.engineerGitHub}
-                </li>
-            </div>
-        </div>
-        <div class="employee-card" id="intern">
-            <h2>${data.internName} Intern</h2>
-            <div class="card-body">
-                <li class="list-group-item">
-                    ID: ${data.internId}
-                </li>
-                <li class="list-group-item">
-                    Email: ${data.internEmail}
-                </li>
-                <li class="list-group-item">
-                    School: ${data.internSchool}
-                </li>
-            </div>
-        </div>
-    </main>
-    <script src="../index.js"></script>`;
-
-//then append data to index.html file
-const newTeam = (data) => {
-    fs.appendFile("index.html", generateHtml(data), (err) =>
-    err ? console.error(err) : console.log("TEAM ASSEMBLED!"));
-}
+// //then append data to index.html file
+// const newTeam = (data) => {
+//     fs.appendFile("index.html", generateHtml(data), (err) =>
+//     err ? console.error(err) : console.log("TEAM ASSEMBLED!"));
+// }
 
 // //Ask questions
 // //What team members to add
@@ -200,3 +223,5 @@ const newTeam = (data) => {
 //     const answers = await inquirer.prompt(managerQuestions);
 //     return answers;
 // }
+
+init();
