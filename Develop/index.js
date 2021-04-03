@@ -8,17 +8,14 @@ const Employee = require("../Develop/lib/Employee.js");
 const Engineer = require("../Develop/lib/Engineer.js");
 const Intern = require("../Develop/lib/Intern.js");
 const Manager = require("../Develop/lib/Manager.js");
-// const { listenerCount } = require("events");
 
 //Empty array for all newly added team embers to be added to
 const teamArray = [];
 
 //Initialize app
 function init() {
-    //Create team html page
-    //generateHtml();
-    //Prompt team member questions
     createTeam();
+    // fs.writeFileSync("index.html", teamArray);
 };
 
 function createTeam() {
@@ -75,7 +72,7 @@ function managerQuestions() {
         },    
     ]).then(data => {
         //Create new engineer and add to teamArray
-        const manager = new Manager();
+        const manager = new Manager(data.managerName, data.managerId, data.managerEmail, data.managerOfficeNumber);
         teamArray.push(manager);
         //Continue asking for new team members
         askForNewEmployee();
@@ -107,7 +104,7 @@ function engineerQuestions() {
         },    
     ]).then(data => {
         //Create new engineer and add to teamArray
-        const engineer = new Engineer();
+        const engineer = new Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGitHub);
         teamArray.push(engineer);
         //Continue asking for new team members
         askForNewEmployee();
@@ -139,8 +136,9 @@ function internQuestions() {
         },
     ]).then(data => {
         //Creat new intern and add to teamArray
-        const intern = new Intern();
+        const intern = new Intern(data.internName, data.internId, data.internEmail, data.internSchool);
         teamArray.push(intern);
+        console.log(teamArray);
         //Continue asking for new team members
         askForNewEmployee();
     })
@@ -211,10 +209,5 @@ function internQuestions() {
 //     </main>
 //     <script src="../index.js"></script>`;
 
-// //then append data to index.html file
-// const newTeam = (data) => {
-//     fs.appendFile("index.html", generateHtml(data), (err) =>
-//     err ? console.error(err) : console.log("TEAM ASSEMBLED!"));
-// }
 
 init();
