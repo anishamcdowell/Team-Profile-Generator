@@ -73,7 +73,6 @@ const generateHtml = data => `<html lang="en">
             </div>
         </div>
     </main>
-
     <script src="../index.js"></script>`;
 
 //CLI Prompts
@@ -102,128 +101,48 @@ inquirer.prompt([
         name: "managerOfficeNumber",
         message: "What is the team manager's office number?",
     },
-    //select next user type
-    {
-        type: "list",
-        name: "selectMemberType",
-        message: "Which type of team member would you like to add next?",
-        choices: ["Engineer", "Intern", "I don't want to add any more team members"],
-    },
 ])
 //then append data to index.html file
 .then((data) => {
     fs.appendFile("index.html", generateHtml(data), (err) =>
     err ? console.error(err) : 
-    inquirer.prompt([
+    inquirer.prompt(
+        //select next user type
         {
-            type: "input",
-            name: "internName",
-            message: "What is the team intern's name?",
+            type: "list",
+            name: "selectMemberType",
+            message: "Which type of team member would you like to add next?",
+            choices: ["Engineer", "Intern", "I don't want to add any more team members"],
+            filter: (value) => {
+                return value;
+            }
         },
+    )
+    // [
+    //     {
+    //         type: "input",
+    //         name: "internName",
+    //         message: "What is the team intern's name?",
+    //     },
 
-        {
-            type: "input",
-            name: "internId",
-            message: "What is the team intern's id?",
-            when: "(data) => { data.choices === 'Intern' }",
-        },
-        {
-            type: "input",
-            name: "internEmail",
-            message: "What is the team intern's email?",
-            when: "(data) => { data.choices === 'Intern' }",
-        },
-        {
-            type: "input",
-            name: "internSchool",
-            message: "What school did the team intern attend?",
-            when: "(data) => { data.choices === 'Intern' }",
-        },
-    ])
+    //     {
+    //         type: "input",
+    //         name: "internId",
+    //         message: "What is the team intern's id?",
+    //         when: "(data) => { data.choices === 'Intern' }",
+    //     },
+    //     {
+    //         type: "input",
+    //         name: "internEmail",
+    //         message: "What is the team intern's email?",
+    //         when: "(data) => { data.choices === 'Intern' }",
+    //     },
+    //     {
+    //         type: "input",
+    //         name: "internSchool",
+    //         message: "What school did the team intern attend?",
+    //         when: "(data) => { data.choices === 'Intern' }",
+    //     },
+    // ])
 );
 })
-//then intern
-// .then((data) => {
-//     inquirer.prompt([
-//         {
-//             type: "input",
-//             name: "internName",
-//             message: "What is the team intern's name?",
-//         },
-
-//         {
-//             type: "input",
-//             name: "internId",
-//             message: "What is the team intern's id?",
-//             when: "(data) => { data.choices === 'Intern' }",
-//         },
-//         {
-//             type: "input",
-//             name: "internEmail",
-//             message: "What is the team intern's email?",
-//             when: "(data) => { data.choices === 'Intern' }",
-//         },
-//         {
-//             type: "input",
-//             name: "internSchool",
-//             message: "What school did the team intern attend?",
-//             when: "(data) => { data.choices === 'Intern' }",
-//         },
-//     ])
-// })
-
-// //then if next user type === engineer prompt engineer; else if next user type === intern prompt intern; else complete prompts
-//     if (data.selectMemberType === "Engineer") {
-//         inquirer.prompt([
-//             {
-//                 type: "input",
-//                 name: "engineerName",
-//                 message: "What is the team engineer's name?",
-//             },
-//             {
-//                 type: "input",
-//                 name: "engineerId",
-//                 message: "What is the team engineer's id?",
-//             },
-//             {
-//                 type: "input",
-//                 name: "engineerEmail",
-//                 message: "What is the team engineer's email?",
-//                 when: "(data) => { data.choices === 'Engineer' }",
-//             },
-//             {
-//                 type: "input",
-//                 name: "engineerGitHub",
-//                 message: "What is the team engineer's GitHub username?",
-//             },
-//         ]);
-//     } else if (data.selectMemberType === "Intern") {
-//         inquirer.prompt([
-            // {
-            //     type: "input",
-            //     name: "internName",
-            //     message: "What is the team intern's name?",
-            // },
-
-            // {
-            //     type: "input",
-            //     name: "internId",
-            //     message: "What is the team intern's id?",
-            //     when: "(data) => { data.choices === 'Intern' }",
-            // },
-            // {
-            //     type: "input",
-            //     name: "internEmail",
-            //     message: "What is the team intern's email?",
-            //     when: "(data) => { data.choices === 'Intern' }",
-            // },
-            // {
-            //     type: "input",
-            //     name: "internSchool",
-            //     message: "What school did the team intern attend?",
-            //     when: "(data) => { data.choices === 'Intern' }",
-            // },
-//         ])
-//     } else {
-//         return
-//     }

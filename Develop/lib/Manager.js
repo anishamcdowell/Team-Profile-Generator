@@ -2,12 +2,17 @@ const { prompts } = require("inquirer");
 const Employee = require("./Employee");
 
 class Manager extends Employee {
-  constructor(name, id, email, role) {
-    super(name, id, email, role)
+  constructor(name, id, email, officeNumber) {
+    super(name, id, email);
+    this.officeNumber = officeNumber;
   }
 
-  get officeNumber() {
-      return `${this.officeNumber}`;
+  askOfficeNumber() {
+      return this.officeNumber;
+  }
+
+  getRole() {
+    return "Manager";
   }
 
 }
