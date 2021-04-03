@@ -1,22 +1,27 @@
 //Dependencies
 const inquirer = require("inquirer");
 const fs = require("fs");
+const path = require ("path");
 
 //Team/Employee Requirements
-const team = require("./src/page-template");
+const generateTeam = require("./src/page-template");
 const Employee = require("../Develop/lib/Employee.js");
 const Engineer = require("../Develop/lib/Engineer.js");
 const Intern = require("../Develop/lib/Intern.js");
 const Manager = require("../Develop/lib/Manager.js");
 
+const OUTPUT_DIR = path.resolve(__dirname, 'output');
+const outputPath = path.join(OUTPUT_DIR, 'index.html');
+
 //Empty array for all newly added team embers to be added to
 const teamArray = [];
 
 //Initialize app
-function init() {
-    createTeam();
-    // fs.writeFileSync("index.html", teamArray);
-};
+//I need my writefile function to await my init function
+async function init() {
+    await createTeam()
+    fs.writeFileSync(outputPath, generateTeam(teamArray), err => err ? console.error(err) : console.log("Team.html is complete"));
+}
 
 function createTeam() {
 // Prompt user to begin assembling team
@@ -138,76 +143,11 @@ function internQuestions() {
         //Creat new intern and add to teamArray
         const intern = new Intern(data.internName, data.internId, data.internEmail, data.internSchool);
         teamArray.push(intern);
-        console.log(teamArray);
         //Continue asking for new team members
         askForNewEmployee();
     })
+}
 };
-
 //------------------END: EMPLOYEE QUESTIONS AND SWITCH CASES--------------
-
-};
-
-// //Generate HTML based on user data
-// const generateHtml = data => `<html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>My Team</title>
-//     <link rel="stylesheet" href="style.css">
-// </head>
-// <body>
-//     <header class="team-heading">
-//         <h1>My Team</h1>
-//     </header>
-//     <main class="team-area">
-//         <div class="employee-card" id="manager">
-//             <h2>${data.managerName} Manager</h2>
-//             <div class="card-body">
-//                 <div class="list-group-container">
-//                     <li class="list-group-item">
-//                         ID: ${data.managerId}
-//                     </li>
-//                     <li class="list-group-item">
-//                         Email: ${data.managerEmail}
-//                     </li>
-//                     <li class="list-group-item">
-//                         Office Number: ${data.managerOfficeNumber}
-//                     </li>
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="employee-card" id="engineer">
-//             <h2>${data.engineerName} Engineer</h2>
-//             <div class="card-body">
-//                 <li class="list-group-item">
-//                     ID: ${data.engineerId}
-//                 </li>
-//                 <li class="list-group-item">
-//                     Email: ${data.engineerEmail}
-//                 </li>
-//                 <li class="list-group-item">
-//                     GitHub: ${data.engineerGitHub}
-//                 </li>
-//             </div>
-//         </div>
-//         <div class="employee-card" id="intern">
-//             <h2>${data.internName} Intern</h2>
-//             <div class="card-body">
-//                 <li class="list-group-item">
-//                     ID: ${data.internId}
-//                 </li>
-//                 <li class="list-group-item">
-//                     Email: ${data.internEmail}
-//                 </li>
-//                 <li class="list-group-item">
-//                     School: ${data.internSchool}
-//                 </li>
-//             </div>
-//         </div>
-//     </main>
-//     <script src="../index.js"></script>`;
-
 
 init();
