@@ -19,11 +19,11 @@ const teamArray = [];
 //Initialize app
 function init() {
     createTeam();
-    //writeHtml();
+    
 }
 
 function writeHtml() {
-    fs.writeFileSync(outputPath, generateTeam(teamArray), err => err ? console.error(err) : console.log("Team.html is complete"));
+    fs.writeFileSync(outputPath, generateTeam(teamArray), err => err ? console.error(err) : console.log("SUCCESS!!"));
 }
 
 
@@ -49,6 +49,7 @@ function askForNewEmployee() {
                 return internQuestions();
             default:
                 console.log("TEAM COMPLETE! PLEASE CHECK YOUR WEBPAGE.");
+                writeHtml();
                 break;
         }
     })
@@ -85,6 +86,7 @@ function managerQuestions() {
         teamArray.push(manager);
         //Continue asking for new team members
         askForNewEmployee();
+        //return generateManager();
     })
 }
 
