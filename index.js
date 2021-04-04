@@ -5,10 +5,10 @@ const path = require ("path");
 
 //Team/Employee Requirements
 const generateTeam = require("./src/page-template");
-const Employee = require("../Develop/lib/Employee.js");
-const Engineer = require("../Develop/lib/Engineer.js");
-const Intern = require("../Develop/lib/Intern.js");
-const Manager = require("../Develop/lib/Manager.js");
+const Employee = require("./lib/Employee.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
+const Manager = require("./lib/Manager.js");
 
 const OUTPUT_DIR = path.resolve(__dirname, 'output');
 const outputPath = path.join(OUTPUT_DIR, 'index.html');
