@@ -1,4 +1,4 @@
-# Weather-Dashboard
+# Team Profile Generator
 
 ## Project Demo
 [https://drive.google.com/file/d/16E-Cab_IZKrRsZw6BdngdWAS3R9tSg8o/view?usp=sharing](https://drive.google.com/file/d/16E-Cab_IZKrRsZw6BdngdWAS3R9tSg8o/view?usp=sharing)
